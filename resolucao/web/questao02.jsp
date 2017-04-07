@@ -9,10 +9,31 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
         <title>JSP Page</title>
     </head>
+    <% String situacao = request.getParameter("situacao");%>
+    <% int i = 0; %>
     <body>
-        <h1>Questao 02</h1>
         
+            <%if (situacao == null){%>
+                <form action="questao02" method="POST">
+                    <h1>Questao 02</h1>
+                    <% for (i = 0; i < 3; i++){%>
+                        [<%=i+1%>] Informe sua nota: 
+                        <input type="text" name="nota<%=i%>"/><br/><br/>
+                    <%}%>
+                    <input type="submit" value="Enviar"/>
+                </form>
+                    
+            <%} else if ((situacao.equals("exame"))){%>
+            <form action="questao02" method="POST">
+                <h1> Exame! Trouxa </h1>
+                Informe sua nota de trouxa: 
+                <input type="text" name="notaE"/><br/><br/>
+                <input type="submit" value="Enviar"/>
+            </form>
+            <%}%>
+            
     </body>
 </html>
