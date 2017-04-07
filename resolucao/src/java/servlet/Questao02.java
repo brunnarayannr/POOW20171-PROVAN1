@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "Questao02", urlPatterns = {"/questao02"})
 public class Questao02 extends HttpServlet {
-
+public static float media = 0;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -34,10 +34,13 @@ public class Questao02 extends HttpServlet {
         
         float nota[] = new float[3];
         int i;
-        float media = -1;
+        
         String situacao = request.getParameter("situacao");
         
-       if (!(request.getParameter("notaE")== null)){
+        String msg = "";
+        double f;
+        
+       if (request.getParameter("notaE")== null){
            
            for (i = 0; i < 3; i++){
                nota[i] = Float.valueOf(request.getParameter("nota"+i));
@@ -47,13 +50,17 @@ public class Questao02 extends HttpServlet {
 
             if (media < 7)
                 response.sendRedirect("questao02.jsp?situacao="+"exame");
+            else
+                msg = "Parabéns, você foi aprovado!";
+       } else {
+           Double notaE = Double.valueOf(request.getParameter("notaE"));
+           f = (media + notaE) / 2;
+           
+           if (f >= 5)
+               msg = "Parabéns, você foi aprovado na merda";
+           else
+               msg = "Você foi reprovado, trouxa!";
        }
-        
-        
-        String msg;
-        msg = ("n1: "+nota[0]+"n2: "+nota[1]+" n3: "+nota[2]+" Media: "+media+" situacao: "+situacao+"");
-        
-        
         
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
@@ -64,7 +71,7 @@ public class Questao02 extends HttpServlet {
             out.println("<title>Servlet Questao02</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Questao02 at " + msg + "</h1>");
+            out.println("<h1>" + msg + " </h1><br/><br/>");
             out.println("</body>");
             out.println("</html>");
         }
