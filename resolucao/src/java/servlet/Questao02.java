@@ -36,9 +36,8 @@ public class Questao02 extends HttpServlet {
         int i;
         float media = -1;
         String situacao = request.getParameter("situacao");
-        float notaE = Float.valueOf(request.getParameter("notaE"));
         
-       if (!(request.getParameter("notaE")==null)){
+       if (!(request.getParameter("notaE")== null)){
            
            for (i = 0; i < 3; i++){
                nota[i] = Float.valueOf(request.getParameter("nota"+i));
@@ -48,7 +47,7 @@ public class Questao02 extends HttpServlet {
 
             if (media < 7)
                 response.sendRedirect("questao02.jsp?situacao="+"exame");
-       } 
+       }
         
         
         String msg;
